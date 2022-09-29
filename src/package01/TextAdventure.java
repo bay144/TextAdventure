@@ -1,3 +1,5 @@
+package package01;
+
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Font;
@@ -6,11 +8,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import java.util.Random;
-import java.util.ArrayList;
-import java.util.List;
-
-
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -18,38 +15,30 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
 //class #1, move to game class window
-public class Game {
+public class TextAdventure {
     //creates window
+
     JFrame window;
     Container container;
     //creates title panel
-    JPanel titleNamePanel, startButtonPanel, mainTextPanel, choiceButtonPanel, playerStatsPanel;
+    JPanel titleNamePanel, startButtonPanel, mainTextPanel, choiceButtonPanel, playerStatsPanel, inventoryButtonPanel;
     JLabel titleNameLabel, healthLabel, healthLabelNumber, attackLabel, attackLabelNumber, defenseLabel, defenseLabelNumber, speedLabel, speedLabelNumber, luckLabel, luckLabelNumber;
     Font titleFont = new Font("Papyrus", Font.PLAIN, 60);
     Font normalFont = new Font("Papyrus", Font.PLAIN, 20);
     Font statsFont = new Font("Papyrus", Font.PLAIN, 16);
-    JButton startButton, choice1, choice2, choice3, choice4, reset;
-    JTextArea mainTextArea;
-    int playerHealth;
-    int playerAttack;
-    int playerDefense;
-    int playerSpeed;
-    int playerLuck;
+    JButton startButton, choice1, choice2, choice3, choice4, inventoryButton, itemButton1, itemButton2,itemButton3, itemButton4, itemButton5 ;
+    JTextArea mainTextArea ;
+    int playerHealth, playerAttack, playerDefense, playerSpeed, playerLuck;
     String position;
-
-    int randomChance;
-
-
     titleScreenHandler tsHandler = new titleScreenHandler();
     ChoiceHandler choiceHandler = new ChoiceHandler();
+    InventoryHandler iHandler = new InventoryHandler();
 
     public static void main(String[] args) {
 
-        new Game();
+        new TextAdventure();
     }
-
-    public Game() {
-
+    public TextAdventure() {
         //initialized JFrame
         window = new JFrame();
         window.setSize(800, 700);
@@ -58,10 +47,8 @@ public class Game {
         window.setLayout(null);
         container = window.getContentPane();
 
-
         titleNamePanel = new JPanel();
-        //makes space for text (x axis, y axis, width, height)
-        titleNamePanel.setBounds(100, 100, 600, 150);
+        titleNamePanel.setBounds(100, 100, 600, 150); //makes space for text (x axis, y axis, width, height)
         titleNamePanel.setBackground(Color.pink);
 
         titleNameLabel = new JLabel("Stuck in Casino Game");
@@ -78,10 +65,8 @@ public class Game {
         startButton.setBackground(Color.CYAN);
         startButton.setForeground(Color.BLACK);
         startButton.setFont(normalFont);
-        //when u click start button, it recognizes the click and call the tsHandler
-        startButton.addActionListener(tsHandler);
-        //in case there is a line around text, use this for each button
-        startButton.setFocusPainted(false);
+        startButton.addActionListener(tsHandler); //when u click start button, it recognizes the click and call the tsHandler
+        startButton.setFocusPainted(false); //in case there is a line around text, use this for each button
 
         //adds titleNamePanel to the Container IF U DONT HAVE THIS, WHAT U DID ABOVE WILL NOT SHOW UP
         container.add(titleNamePanel);
@@ -96,7 +81,6 @@ public class Game {
         //when u click start button, it recognizes the click and call the tsHandler
         startButton.addActionListener(tsHandler);
     }
-
     public void createGameScreen() {
 
         //disable button panel and title screen panel otherwise if u click button it will stay on the same page
@@ -114,16 +98,77 @@ public class Game {
         mainTextArea.setBackground(Color.pink);
         mainTextArea.setForeground(Color.black);
         mainTextArea.setFont(normalFont);
-        //if the text is too long, it will be wrapped automatically
-        mainTextArea.setLineWrap(true);
+        mainTextArea.setLineWrap(true); //if the text is too long, it will be wrapped automatically
         mainTextPanel.add(mainTextArea);
 
         choiceButtonPanel = new JPanel();
         choiceButtonPanel.setBounds(200, 350, 300, 400);
         choiceButtonPanel.setBackground(Color.pink);
-        //sets layout for button (rows, columns) i commented in out bc it looks wierd with it rn but we might use it later on
-        choiceButtonPanel.setLayout(new GridLayout(4, 1));
+        choiceButtonPanel.setLayout(new GridLayout(5, 1)); //sets layout for button (rows, columns)
         container.add(choiceButtonPanel);
+
+        inventoryButton = new JButton("Inventory");
+        inventoryButton.setBackground(Color.black);
+        inventoryButton.setForeground(Color.black);
+        inventoryButton.setFont(normalFont);
+        inventoryButton.addActionListener(iHandler);
+        inventoryButton.setActionCommand("InventoryButton ");
+        choiceButtonPanel.add(inventoryButton);
+
+        inventoryButtonPanel = new JPanel();
+        inventoryButtonPanel.setBounds(50,400,100,100);
+        inventoryButtonPanel.setBackground(Color.blue);
+        inventoryButtonPanel.setLayout(new GridLayout(5,1));
+        inventoryButtonPanel.setFont(normalFont);
+        container.add(inventoryButtonPanel);
+
+        itemButton1 = new JButton();
+        itemButton1.setBackground(Color.black);
+        itemButton1.setForeground(Color.white);
+        itemButton1.setFont(normalFont);
+        itemButton1.addActionListener(iHandler);
+        itemButton1.setActionCommand("item1");
+        itemButton1.setFocusPainted(false);
+
+        itemButton2 = new JButton();
+        itemButton2.setBackground(Color.black);
+        itemButton2.setForeground(Color.white);
+        itemButton2.setFont(normalFont);
+        itemButton2.addActionListener(iHandler);
+        itemButton2.setActionCommand("item2");
+        itemButton2.setFocusPainted(false);
+
+        itemButton3 = new JButton();
+        itemButton3.setBackground(Color.black);
+        itemButton3.setForeground(Color.white);
+        itemButton3.setFont(normalFont);
+        itemButton3.addActionListener(iHandler);
+        itemButton3.setActionCommand("item3");
+        itemButton3.setFocusPainted(false);
+
+        itemButton4 = new JButton();
+        itemButton4.setBackground(Color.black);
+        itemButton4.setForeground(Color.white);
+        itemButton4.setFont(normalFont);
+        itemButton4.setActionCommand("item4");
+        itemButton4.addActionListener(iHandler);
+        itemButton4.setFocusPainted(false);
+
+        itemButton5 = new JButton();
+        itemButton5.setBackground(Color.black);
+        itemButton5.setForeground(Color.white);
+        itemButton5.setFont(normalFont);
+        itemButton5.addActionListener(iHandler);
+        itemButton5.setActionCommand("item5");
+        itemButton5.setFocusPainted(false);
+
+
+        inventoryButtonPanel.add(itemButton1);
+        inventoryButtonPanel.add(itemButton2);
+        inventoryButtonPanel.add(itemButton3);
+        inventoryButtonPanel.add(itemButton4);
+        inventoryButtonPanel.add(itemButton5);
+        inventoryButtonPanel.setVisible(false);
 
         choice1 = new JButton("Choice 1");
         choice1.setBackground(Color.black);
@@ -215,10 +260,9 @@ public class Game {
         luckLabelNumber.setFont(statsFont);
         luckLabelNumber.setForeground(Color.black);
         playerStatsPanel.add(luckLabelNumber);
-
         playerSetup();
-    }
 
+    }
     public void playerSetup() {
         //set parameters
         playerHealth = 7;
@@ -234,26 +278,29 @@ public class Game {
         luckLabelNumber.setText("" + playerLuck);
         casinoLobby();
     }
-
+    public void inventory() {
+        position = "inventory";
+        mainTextArea.setText("This is the inventory");
+        inventoryButtonPanel.setVisible(true);
+        choiceButtonPanel.setVisible(false);
+    }
     public void casinoLobby() {
         position = "casinoLobby";
-        mainTextArea.setText("U r in the casino lobby. The story will be in here. \n Guard: u cant be in here either solve a puzzle or leave to move on ");
-        choice1.setText("Solve Puzzle");
+        mainTextArea.setText("U r in the casino lobby. The story will be in here. \n Guard: u cant be in here either solve a Riddle or leave to move on ");
+        choice1.setText("Solve Riddle");
         choice2.setText("Fight Casino Host");
         choice3.setText("Try to sneak in"); //random chance
         choice4.setText("Leave");
     }
-
-    public void solvePuzzle() {
-        position = "solvePuzzle";
-        mainTextArea.setText("Casino Host: ok this is the puzzle ");
-        choice1.setText(">");
-        choice2.setText("");
-        choice3.setText("");
-        choice4.setText("");
+    public void solveRiddle() {
+        position = "solveRiddle";
+        mainTextArea.setText("Casino Host: ok this is the Riddle ");
+        choice1.setText("Answer 1");
+        choice2.setText("Answer 2");
+        choice3.setText("Answer 3"); //This will be the correct one
+        choice4.setText("Answer 4");
 
     }
-
     public void attackHost() {
         position = "attackHost";
         mainTextArea.setText("Casino Host: omg u attacked me get ready to fight to death  \n u receive 3 damage "); //battle if u lose u die
@@ -264,8 +311,6 @@ public class Game {
         choice3.setText("");
         choice4.setText("");
     }
-
-    //u WILL HAVE A RANDOM CHANCE OF SNEAKING IN IF U DONT U WILL GO BACK TO LOBBY
     public void sneakIn() {
         position = "sneakIn";
         mainTextArea.setText("DO u want to sneak in through the bathrooms or through the kitchen?");
@@ -275,7 +320,6 @@ public class Game {
         choice4.setText("");
 
     }
-
     public void blockedExit() {
         position = "blockedExit";
         mainTextArea.setText(" u cant leave u need a key to exit and the boss has the key. u gotta get it and come back.");
@@ -285,7 +329,6 @@ public class Game {
         choice4.setText("");
 
     }
-
     public void bathroomFailed() {
         position = "bathroomFailed";
         mainTextArea.setText("You got caught");
@@ -295,7 +338,6 @@ public class Game {
         choice4.setText("");
 
     }
-
     public void bathroomSuccess() {
         position = "bathroomSuccess";
         mainTextArea.setText("You snuck in!");
@@ -313,7 +355,6 @@ public class Game {
             choice3.setText("frontDoor");
             choice4.setText("");
     }
-
     public void leftDoor(){
         position = "leftDoor";
         mainTextArea.setText("You are now in the Queens Area");
@@ -323,7 +364,6 @@ public class Game {
         choice4.setText("idk");
 
     }
-
     public void rightDoor(){
         position = "rightDoor";
         mainTextArea.setText("You are now in the KingsArea");
@@ -336,27 +376,17 @@ public class Game {
     public void frontDoor() {
         position = "frontDoor";
         mainTextArea.setText("You are now in the Jacks Area");
-        choice1.setText("idk");
+        choice1.setText("");
         choice2.setText("idk");
         choice3.setText("idk");
         choice4.setText("idk");
 
     }
-
-
     public Random random = new Random();
     public boolean randomChance() {
         return random.nextBoolean();
     }
-    /*public int randomChance() {
-        if (random.nextBoolean()) {
-            return 1;
-        } else {
-            return 0;
-        }
-    }*/
 
-    //class #2 move to a class window
     public class titleScreenHandler implements ActionListener {
         public void actionPerformed(ActionEvent event) {
             createGameScreen();
@@ -367,25 +397,22 @@ public class Game {
             String yourChoice = event.getActionCommand(); //adds action command to whatever button is clicked. If u click c1 its will add that to the your choice string
 
             //add results to buttons
-
-
-
             switch(position){
                 case "casinoLobby": //recognizes position
                     switch(yourChoice){
-                        case "c1": solvePuzzle(); break;
+                        case "c1": solveRiddle(); break;
                         case "c2": attackHost(); break;
                         case "c3": sneakIn(); break;
                         case "c4": blockedExit(); break;
                     }
                     break;
 
-                case "solvePuzzle":
+                case "solveRiddle":
                     switch(yourChoice) {
-                        case "c1": casinoLobby(); break;
-                        case "c2": break;
-                        case "c3": break;
-                        case "c4": break;
+                        case "c1":  casinoLobby();
+                        case "c2": casinoLobby();
+                        case "c3": hallway();
+                        case "c4": casinoLobby();
                     }
                     break;
 
@@ -411,7 +438,6 @@ public class Game {
                     }
                     break;
 
-
                 case "hallway":
                     switch(yourChoice){
                         case "c1": leftDoor();break;
@@ -422,13 +448,29 @@ public class Game {
                     break;
 
                 case "bathroomSuccess":
-                     switch(yourChoice){
-                         case "c1": hallway();break;
-                         case "c2":  break;
-                         case "c3":  break;
+                     switch(yourChoice) {
+                         case "c1": hallway(); break;
+                         case "c2": break;
+                         case "c3": break;
                          case "c4": break;
-            }
-
+                     }
+                case "bathroomFail":
+                    switch(yourChoice) {
+                        case"c1": casinoLobby(); break;
+                    }
         }
-             }}}
+             }
+    }
+    public class InventoryHandler implements ActionListener {
+        public void actionPerformed(ActionEvent event) {
+            String yourChoice = event.getActionCommand();
+            switch(yourChoice){
+                case "inventory": inventory();
+                    inventoryButtonPanel.setVisible(false);
+            }
+        }
+    }
+                 }
+
+
 
