@@ -17,7 +17,6 @@ import javax.swing.JTextArea;
 //class #1, move to game class window
 public class TextAdventure {
     //creates window
-
     JFrame window;
     Container container;
     //creates title panel
@@ -26,13 +25,12 @@ public class TextAdventure {
     Font titleFont = new Font("Papyrus", Font.PLAIN, 60);
     Font normalFont = new Font("Papyrus", Font.PLAIN, 20);
     Font statsFont = new Font("Papyrus", Font.PLAIN, 16);
-    JButton startButton, choice1, choice2, choice3, choice4, inventoryButton, itemButton1, itemButton2,itemButton3, itemButton4, itemButton5 ;
+    JButton startButton, choice1, choice2, choice3, choice4;
     JTextArea mainTextArea ;
     int playerHealth, playerAttack, playerDefense, playerSpeed, playerLuck;
     String position;
     titleScreenHandler tsHandler = new titleScreenHandler();
     ChoiceHandler choiceHandler = new ChoiceHandler();
-    InventoryHandler iHandler = new InventoryHandler();
 
     public static void main(String[] args) {
 
@@ -104,71 +102,8 @@ public class TextAdventure {
         choiceButtonPanel = new JPanel();
         choiceButtonPanel.setBounds(200, 350, 300, 400);
         choiceButtonPanel.setBackground(Color.pink);
-        choiceButtonPanel.setLayout(new GridLayout(5, 1)); //sets layout for button (rows, columns)
+        choiceButtonPanel.setLayout(new GridLayout(4, 1)); //sets layout for button (rows, columns)
         container.add(choiceButtonPanel);
-
-        inventoryButton = new JButton("Inventory");
-        inventoryButton.setBackground(Color.black);
-        inventoryButton.setForeground(Color.black);
-        inventoryButton.setFont(normalFont);
-        inventoryButton.addActionListener(iHandler);
-        inventoryButton.setActionCommand("InventoryButton ");
-        choiceButtonPanel.add(inventoryButton);
-
-        inventoryButtonPanel = new JPanel();
-        inventoryButtonPanel.setBounds(50,400,100,100);
-        inventoryButtonPanel.setBackground(Color.blue);
-        inventoryButtonPanel.setLayout(new GridLayout(5,1));
-        inventoryButtonPanel.setFont(normalFont);
-        container.add(inventoryButtonPanel);
-
-        itemButton1 = new JButton();
-        itemButton1.setBackground(Color.black);
-        itemButton1.setForeground(Color.white);
-        itemButton1.setFont(normalFont);
-        itemButton1.addActionListener(iHandler);
-        itemButton1.setActionCommand("item1");
-        itemButton1.setFocusPainted(false);
-
-        itemButton2 = new JButton();
-        itemButton2.setBackground(Color.black);
-        itemButton2.setForeground(Color.white);
-        itemButton2.setFont(normalFont);
-        itemButton2.addActionListener(iHandler);
-        itemButton2.setActionCommand("item2");
-        itemButton2.setFocusPainted(false);
-
-        itemButton3 = new JButton();
-        itemButton3.setBackground(Color.black);
-        itemButton3.setForeground(Color.white);
-        itemButton3.setFont(normalFont);
-        itemButton3.addActionListener(iHandler);
-        itemButton3.setActionCommand("item3");
-        itemButton3.setFocusPainted(false);
-
-        itemButton4 = new JButton();
-        itemButton4.setBackground(Color.black);
-        itemButton4.setForeground(Color.white);
-        itemButton4.setFont(normalFont);
-        itemButton4.setActionCommand("item4");
-        itemButton4.addActionListener(iHandler);
-        itemButton4.setFocusPainted(false);
-
-        itemButton5 = new JButton();
-        itemButton5.setBackground(Color.black);
-        itemButton5.setForeground(Color.white);
-        itemButton5.setFont(normalFont);
-        itemButton5.addActionListener(iHandler);
-        itemButton5.setActionCommand("item5");
-        itemButton5.setFocusPainted(false);
-
-
-        inventoryButtonPanel.add(itemButton1);
-        inventoryButtonPanel.add(itemButton2);
-        inventoryButtonPanel.add(itemButton3);
-        inventoryButtonPanel.add(itemButton4);
-        inventoryButtonPanel.add(itemButton5);
-        inventoryButtonPanel.setVisible(false);
 
         choice1 = new JButton("Choice 1");
         choice1.setBackground(Color.black);
@@ -278,12 +213,6 @@ public class TextAdventure {
         luckLabelNumber.setText("" + playerLuck);
         casinoLobby();
     }
-    public void inventory() {
-        position = "inventory";
-        mainTextArea.setText("This is the inventory");
-        inventoryButtonPanel.setVisible(true);
-        choiceButtonPanel.setVisible(false);
-    }
     public void casinoLobby() {
         position = "casinoLobby";
         mainTextArea.setText("U r in the casino lobby. The story will be in here. \n Guard: u cant be in here either solve a Riddle or leave to move on ");
@@ -350,38 +279,48 @@ public class TextAdventure {
     public void hallway(){
             position = "hallway";
             mainTextArea.setText("You are now in the hallway");
-            choice1.setText("leftDoor");
+            choice1.setText("Left Door");
             choice2.setText("rightDoor");
             choice3.setText("frontDoor");
             choice4.setText("");
     }
-    public void leftDoor(){
-        position = "leftDoor";
-        mainTextArea.setText("You are now in the Queens Area");
-        choice1.setText("idk");
-        choice2.setText("idk");
-        choice3.setText("idk");
-        choice4.setText("idk");
+    public void queenRoom(){
+        position = "queenRoom";
+        mainTextArea.setText("You are now in the Queens Area, go to the room with diamond or the one with the heart ?");
+        choice1.setText("Diamond");
+        choice2.setText("Heart");
+        choice3.setText("");
+        choice4.setText("");
 
     }
     public void rightDoor(){
         position = "rightDoor";
-        mainTextArea.setText("You are now in the KingsArea");
-        choice1.setText("idk");
-        choice2.setText("idk");
-        choice3.setText("idk");
-        choice4.setText("idk");
+        mainTextArea.setText("You are now in the Kings Area, go to the room with diamond or the one with the heart ?");
+        choice1.setText("Diamond");
+        choice2.setText("Heart");
+        choice3.setText("");
+        choice4.setText("");
 
     }
     public void frontDoor() {
         position = "frontDoor";
-        mainTextArea.setText("You are now in the Jacks Area");
-        choice1.setText("");
-        choice2.setText("idk");
-        choice3.setText("idk");
-        choice4.setText("idk");
+        mainTextArea.setText("You are now in the Jacks Area. go to the room with diamond or the one with the heart ?");
+        choice1.setText("Diamond");
+        choice2.setText("Heart");
+        choice3.setText("");
+        choice4.setText("");
 
     }
+    public void kingRoom(){
+        position = "kingRoom";
+        mainTextArea.setText("THis is the king room");
+        choice1.setText(">");
+        choice2.setText("");
+        choice3.setText("");
+        choice4.setText("");
+
+    }
+
     public Random random = new Random();
     public boolean randomChance() {
         return random.nextBoolean();
@@ -406,7 +345,6 @@ public class TextAdventure {
                         case "c4": blockedExit(); break;
                     }
                     break;
-
                 case "solveRiddle":
                     switch(yourChoice) {
                         case "c1":  casinoLobby();
@@ -415,7 +353,6 @@ public class TextAdventure {
                         case "c4": casinoLobby();
                     }
                     break;
-
                 case "attackHost":
                     switch (yourChoice){
                         case "c1": casinoLobby(); break;
@@ -424,7 +361,6 @@ public class TextAdventure {
                         case "c4": break;
                     }
                     break;
-
                 case "sneakIn":
                     switch (yourChoice){
                         case "c1":
@@ -437,40 +373,38 @@ public class TextAdventure {
                         case "c3": break;
                     }
                     break;
-
                 case "hallway":
                     switch(yourChoice){
-                        case "c1": leftDoor();break;
+                        case "c1": queenRoom();break;
                         case "c2": rightDoor(); break;
                         case "c3": frontDoor(); break;
                         case "c4": break;
                     }
                     break;
-
                 case "bathroomSuccess":
                      switch(yourChoice) {
                          case "c1": hallway(); break;
-                         case "c2": break;
-                         case "c3": break;
-                         case "c4": break;
+                         case "c2":
+                         case "c4":
+                         case "c3":
+                             break;
                      }
+                     break;
                 case "bathroomFail":
                     switch(yourChoice) {
                         case"c1": casinoLobby(); break;
+                        case "c2":
+                        case "c4":
+                        case "c3":
+                            break;
+                    }
+                    break;
+
                     }
         }
              }
     }
-    public class InventoryHandler implements ActionListener {
-        public void actionPerformed(ActionEvent event) {
-            String yourChoice = event.getActionCommand();
-            switch(yourChoice){
-                case "inventory": inventory();
-                    inventoryButtonPanel.setVisible(false);
-            }
-        }
-    }
-                 }
+
 
 
 
