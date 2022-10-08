@@ -1,18 +1,13 @@
 package package01;
-
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import java.util.Random;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextArea;
+import javax.swing.*;
+
 
 //class #1, move to game class window
 public class TextAdventure {
@@ -20,8 +15,8 @@ public class TextAdventure {
     JFrame window;
     Container container;
     //creates title panel
-    JPanel titleNamePanel, startButtonPanel, mainTextPanel, choiceButtonPanel, playerStatsPanel, inventoryButtonPanel;
-    JLabel titleNameLabel, healthLabel, healthLabelNumber, attackLabel, attackLabelNumber, defenseLabel, defenseLabelNumber, speedLabel, speedLabelNumber, luckLabel, luckLabelNumber;
+    JPanel titleNamePanel, startButtonPanel, mainTextPanel, choiceButtonPanel, playerStatsPanel, inventoryButtonPanel, picturePanel;
+    JLabel titleNameLabel, healthLabel, healthLabelNumber, attackLabel, attackLabelNumber, defenseLabel, defenseLabelNumber, speedLabel, speedLabelNumber, luckLabel, luckLabelNumber, pictureLabel;
     Font titleFont = new Font("Papyrus", Font.PLAIN, 60);
     Font normalFont = new Font("Papyrus", Font.PLAIN, 20);
     Font statsFont = new Font("Papyrus", Font.PLAIN, 16);
@@ -31,6 +26,7 @@ public class TextAdventure {
     String position;
     titleScreenHandler tsHandler = new titleScreenHandler();
     ChoiceHandler choiceHandler = new ChoiceHandler();
+    ImageIcon image;
 
     public static void main(String[] args) {
 
@@ -39,24 +35,35 @@ public class TextAdventure {
     public TextAdventure() {
         //initialized JFrame
         window = new JFrame();
-        window.setSize(800, 700);
+        window.setSize(1000, 1000);
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        window.getContentPane().setBackground(Color.pink);
+        window.getContentPane().setBackground(Color.black);
         window.setLayout(null);
         container = window.getContentPane();
 
         titleNamePanel = new JPanel();
-        titleNamePanel.setBounds(100, 100, 600, 150); //makes space for text (x axis, y axis, width, height)
-        titleNamePanel.setBackground(Color.pink);
+        titleNamePanel.setBounds(100, 100, 600, 150); //makes space for text (x-axis, y-axis, width, height)
+        titleNamePanel.setBackground(Color.black);
 
         titleNameLabel = new JLabel("Stuck in Casino Game");
-        titleNameLabel.setForeground(Color.black);
+        titleNameLabel.setForeground(Color.white);
         titleNameLabel.setFont(titleFont);
+
+
+        picturePanel = new JPanel();
+        picturePanel.setBounds(50,100,900,400);
+        picturePanel.setBackground(Color.blue);
+
+        pictureLabel = new JLabel();
+
+        image = new ImageIcon("");
+        pictureLabel.setIcon(image);
+        picturePanel.add(pictureLabel);
 
         //makes the panel for button
         startButtonPanel = new JPanel();
         startButtonPanel.setBounds(300, 400, 200, 100);
-        startButtonPanel.setBackground(Color.pink);
+        startButtonPanel.setBackground(Color.black);
 
         //this makes the button, adds details
         startButton = new JButton("Start");
@@ -69,6 +76,7 @@ public class TextAdventure {
         //adds titleNamePanel to the Container IF U DONT HAVE THIS, WHAT U DID ABOVE WILL NOT SHOW UP
         container.add(titleNamePanel);
         container.add(startButtonPanel);
+        container.add(picturePanel);
         startButtonPanel.add(startButton);
         //adds titleNameLabel to the titleNamePanel
         titleNamePanel.add(titleNameLabel);
@@ -79,6 +87,7 @@ public class TextAdventure {
         //when u click start button, it recognizes the click and call the tsHandler
         startButton.addActionListener(tsHandler);
     }
+
     public void createGameScreen() {
 
         //disable button panel and title screen panel otherwise if u click button it will stay on the same page
@@ -87,22 +96,22 @@ public class TextAdventure {
         startButtonPanel.setVisible(false);
 
         mainTextPanel = new JPanel();
-        mainTextPanel.setBounds(100, 100, 600, 250);
-        mainTextPanel.setBackground(Color.pink);
+        mainTextPanel.setBounds(50, 550, 350, 250);
+        mainTextPanel.setBackground(Color.black);
         container.add(mainTextPanel);
 
         mainTextArea = new JTextArea("Main Text Area");
-        mainTextArea.setBounds(100, 100, 600, 250);
-        mainTextArea.setBackground(Color.pink);
-        mainTextArea.setForeground(Color.black);
+        mainTextArea.setBounds(50, 550, 350, 250);
+        mainTextArea.setBackground(Color.black);
+        mainTextArea.setForeground(Color.white);
         mainTextArea.setFont(normalFont);
         mainTextArea.setLineWrap(true); //if the text is too long, it will be wrapped automatically
         mainTextPanel.add(mainTextArea);
 
         choiceButtonPanel = new JPanel();
-        choiceButtonPanel.setBounds(200, 350, 300, 400);
-        choiceButtonPanel.setBackground(Color.pink);
-        choiceButtonPanel.setLayout(new GridLayout(4, 1)); //sets layout for button (rows, columns)
+        choiceButtonPanel.setBounds(550, 550, 400, 200);
+        choiceButtonPanel.setBackground(Color.black);
+        choiceButtonPanel.setLayout(new GridLayout(2, 2)); //sets layout for button (rows, columns)
         container.add(choiceButtonPanel);
 
         choice1 = new JButton("Choice 1");
@@ -155,7 +164,6 @@ public class TextAdventure {
         healthLabelNumber.setForeground(Color.black);
         playerStatsPanel.add(healthLabelNumber);
 
-
         attackLabel = new JLabel("Attack: ");
         attackLabel.setFont(statsFont);
         healthLabel.setForeground(Color.BLACK);
@@ -196,7 +204,6 @@ public class TextAdventure {
         luckLabelNumber.setForeground(Color.black);
         playerStatsPanel.add(luckLabelNumber);
         playerSetup();
-
     }
     public void playerSetup() {
         //set parameters
@@ -211,23 +218,38 @@ public class TextAdventure {
         attackLabelNumber.setText("" + playerAttack);
         defenseLabelNumber.setText("" + playerDefense);
         luckLabelNumber.setText("" + playerLuck);
-        casinoLobby();
+        story();
+    }
+    public void story(){
+        position = "story";
+        image = new ImageIcon(".//Images//casinopixel.png");
+        pictureLabel.setIcon(image);
+        mainTextArea.setText("story wil go here");
+        choice1.setText(">");
+        choice2.setText("");
+        choice3.setText("");
+        choice4.setText("");
     }
     public void casinoLobby() {
         position = "casinoLobby";
+        image = new ImageIcon(".//Images//testpic.png");
+        pictureLabel.setIcon(image);
         mainTextArea.setText("U r in the casino lobby. The story will be in here. \n Guard: u cant be in here either solve a Riddle or leave to move on ");
         choice1.setText("Solve Riddle");
         choice2.setText("Fight Casino Host");
         choice3.setText("Try to sneak in"); //random chance
         choice4.setText("Leave");
+
     }
     public void solveRiddle() {
+        image = new ImageIcon(".//Images//casinopic.jpeg");
+        pictureLabel.setIcon(image);
         position = "solveRiddle";
         mainTextArea.setText("Casino Host: ok this is the Riddle ");
-        choice1.setText("Answer 1");
-        choice2.setText("Answer 2");
-        choice3.setText("Answer 3"); //This will be the correct one
-        choice4.setText("Answer 4");
+        choice1.setText("Wrong");
+        choice2.setText("Wrong");
+        choice3.setText("Correct"); //This will be the correct one
+        choice4.setText("Wrong");
 
     }
     public void attackHost() {
@@ -235,14 +257,14 @@ public class TextAdventure {
         mainTextArea.setText("Casino Host: omg u attacked me get ready to fight to death  \n u receive 3 damage "); //battle if u lose u die
         playerHealth = playerHealth - 3;
         healthLabelNumber.setText("" + playerHealth);
-        choice1.setText(">");
-        choice2.setText(">");
-        choice3.setText("");
-        choice4.setText("");
+        choice1.setText("Attack 1");
+        choice2.setText("Attack 2");
+        choice3.setText("Attack 3");
+        choice4.setText("Attack 4");
     }
     public void sneakIn() {
         position = "sneakIn";
-        mainTextArea.setText("DO u want to sneak in through the bathrooms or through the kitchen?");
+        mainTextArea.setText("Do u want to sneak in through the bathrooms or through the kitchen?");
         choice1.setText("Bathrooms");
         choice2.setText("Kitchen");
         choice3.setText("Go back");
@@ -279,9 +301,9 @@ public class TextAdventure {
     public void hallway(){
             position = "hallway";
             mainTextArea.setText("You are now in the hallway");
-            choice1.setText("Left Door");
-            choice2.setText("rightDoor");
-            choice3.setText("frontDoor");
+            choice1.setText("Right Door");
+            choice2.setText("Left Door");
+            choice3.setText("Front Door");
             choice4.setText("");
     }
     public void queenRoom(){
@@ -291,52 +313,92 @@ public class TextAdventure {
         choice2.setText("Heart");
         choice3.setText("");
         choice4.setText("");
-
-    }
-    public void rightDoor(){
-        position = "rightDoor";
-        mainTextArea.setText("You are now in the Kings Area, go to the room with diamond or the one with the heart ?");
-        choice1.setText("Diamond");
-        choice2.setText("Heart");
-        choice3.setText("");
-        choice4.setText("");
-
-    }
-    public void frontDoor() {
-        position = "frontDoor";
-        mainTextArea.setText("You are now in the Jacks Area. go to the room with diamond or the one with the heart ?");
-        choice1.setText("Diamond");
-        choice2.setText("Heart");
-        choice3.setText("");
-        choice4.setText("");
-
     }
     public void kingRoom(){
         position = "kingRoom";
-        mainTextArea.setText("THis is the king room");
-        choice1.setText(">");
-        choice2.setText("");
+        mainTextArea.setText("THis is the king room, do u want to go to the room with diamond or the one with the heart ?");
+        choice1.setText("Diamond");
+        choice2.setText("Heart");
         choice3.setText("");
         choice4.setText("");
+    }
+    public void jackRoom(){
+        position = "jackRoom";
+        mainTextArea.setText("This is the jack room, do u want to go to the room with diamond or the one with the heart ?");
+        choice1.setText("Diamond");
+        choice2.setText("Heart");
+        choice3.setText("");
+        choice4.setText("");
+    }
+    public void jackDiamondRoom(){
+        position = "jackDiamondRoom";
+        mainTextArea.setText("This is jack of diamonds room");
 
     }
+    public void jackHeartRoom(){
+        position = "This is the jack of hearts room";
+        mainTextArea.setText("This is the jack of hearts room");
+    }
+    public void queenDiamondRoom(){
+        position = "queenDiamondRoom";
+        mainTextArea.setText("This is the queen of diamonds room");
+    }
+    public void queenHeartRoom(){
+        position = "queenHeartRoom";
+        mainTextArea.setText("This is the queen of hearts room");
+    }
+    public void kingDiamondRoom(){
+        position = "kingDiamondRoom";
+        mainTextArea.setText("This is the king of diamonds room");
+    }
+    public void kingHeartRoom() {
+        position = "kingHeartRoom";
+        mainTextArea.setText("This is the King of Hearts Room");
+    }
+    public void youLost(){
+        position = "youLost";
+        mainTextArea.setText("U lost");
+    }
+    public void youWon(){
+        position = "youWon";
+        mainTextArea.setText("U won");
+    }
+
 
     public Random random = new Random();
     public boolean randomChance() {
         return random.nextBoolean();
     }
 
+
     public class titleScreenHandler implements ActionListener {
         public void actionPerformed(ActionEvent event) {
             createGameScreen();
         }
     }
-    public class ChoiceHandler implements ActionListener {
+
+        public class ChoiceHandler implements ActionListener {
         public void actionPerformed(ActionEvent event) {
             String yourChoice = event.getActionCommand(); //adds action command to whatever button is clicked. If u click c1 its will add that to the your choice string
 
             //add results to buttons
             switch(position){
+                case "kingRoom":
+                    switch(yourChoice){
+                        case "c1": break;
+                        case "c2": break;
+                        case "c3": break;
+                        case "c4": break;
+                    }
+                    break;
+                case "queenRoom":
+                    switch(yourChoice){
+                        case "c1": break;
+                        case "c2": break;
+                        case "c3": break;
+                        case "c4": break;
+                    }
+                    break;
                 case "casinoLobby": //recognizes position
                     switch(yourChoice){
                         case "c1": solveRiddle(); break;
@@ -345,17 +407,26 @@ public class TextAdventure {
                         case "c4": blockedExit(); break;
                     }
                     break;
-                case "solveRiddle":
-                    switch(yourChoice) {
-                        case "c1":  casinoLobby();
-                        case "c2": casinoLobby();
-                        case "c3": hallway();
-                        case "c4": casinoLobby();
+                case "story":
+                    switch (yourChoice){
+                        case "c1":  casinoLobby(); break;
+                        case "c2": casinoLobby(); break;
+                        case "c3": casinoLobby(); break;
+                        case "c4": casinoLobby(); break;
+
                     }
                     break;
-                case "attackHost":
+                case "solveRiddle":
+                    switch(yourChoice) {
+                        case "c1":  youLost(); break;
+                        case "c2": youLost(); break;
+                        case "c3": hallway(); break;
+                        case "c4": youLost(); break;
+                    }
+                    break;
+                case "attackHost": // if hp less hank 0 lose. When in fight the 4 choices will be different attacks and have dif damage values.
                     switch (yourChoice){
-                        case "c1": casinoLobby(); break;
+                        case "c1": casinoLobby(); break; // maybe if statement for each attack? but would have  to make room for each damage?
                         case "c2": break;
                         case "c3": break;
                         case "c4": break;
@@ -376,18 +447,17 @@ public class TextAdventure {
                 case "hallway":
                     switch(yourChoice){
                         case "c1": queenRoom();break;
-                        case "c2": rightDoor(); break;
-                        case "c3": frontDoor(); break;
+                        case "c2": kingRoom(); break;
+                        case "c3": jackRoom(); break;
                         case "c4": break;
                     }
                     break;
                 case "bathroomSuccess":
                      switch(yourChoice) {
                          case "c1": hallway(); break;
-                         case "c2":
-                         case "c4":
-                         case "c3":
-                             break;
+                         case "c2": break;
+                         case "c4": break;
+                         case "c3": break;
                      }
                      break;
                 case "bathroomFail":
